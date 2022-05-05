@@ -1,0 +1,29 @@
+{
+  "name": "www",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "core-js": "^3.6.5",
+    "prismjs": "^1.28.0",
+    "raw-loader": "^4.0.2",
+    "shaderpg": "file:../pkg",
+    "vue": "^3.0.0",
+    "vue-prism-editor": "^2.0.0-alpha.2"
+  },
+  "devDependencies": {
+    "@vue/cli-service": "~4.5.13",
+    "@vue/compiler-sfc": "^3.0.0",
+    "eslint": "^8.14.0",
+    "eslint-plugin-vue": "^8.7.1"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}
