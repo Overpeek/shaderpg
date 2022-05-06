@@ -5,7 +5,7 @@
 
 use anyhow::{format_err, Result};
 use bytemuck::{Pod, Zeroable};
-use glam::Mat4;
+use glam::{Mat4, Vec2};
 use instant::Instant;
 use srs2dge::{label, prelude::*, shader::Layout};
 use std::{
@@ -90,7 +90,7 @@ impl App {
         let main_ubo_data = Ubo {
             aspect: 0.0,
             time: 0.0,
-            _pad: [0.0, 0.0],
+            cursor: Vec2::new(0.0, 0.0),
         };
         let main_ubo = UniformBuffer::new_single(&target, main_ubo_data);
         let main_shader = None;
@@ -176,6 +176,14 @@ impl Runnable for App {
 
         if self.ws.should_close {
             *control = ControlFlow::Exit;
+        }
+
+        self.main_ubo_data.cursor.x = self.ws.cursor_pos.x as f32 / self.ws.size.width as f32;
+        self.main_ubo_data.cursor.y =
+            1.0 - (self.ws.cursor_pos.y as f32 / self.ws.size.height as f32);
+
+        if !self.ws.cursor_in {
+            self.main_ubo_data.cursor = Vec2::new(-1.0, -1.0);
         }
     }
 
@@ -294,7 +302,7 @@ struct CustomShader {
 struct Ubo {
     aspect: f32,
     time: f32,
-    _pad: [f32; 2],
+    cursor: Vec2,
 }
 
 impl CustomShader {

@@ -5,7 +5,8 @@ struct FragmentInput {
 
 struct UniformInput {
 	aspect: f32,
-	time: f32
+	time: f32,
+	cursor: vec2<f32>
 }
 
 @group(0)

@@ -5,8 +5,9 @@ authors = ["Overpeek <overpeek.fin@gmail.com>"]
 edition = "2021"
 
 [profile.release]
-# Tell `rustc` to optimize for small code size.
-opt-level = "s"
+lto = true
+codegen-units = 1
+opt-level = 'z'
 
 [lib]
 crate-type = ["cdylib", "rlib"]

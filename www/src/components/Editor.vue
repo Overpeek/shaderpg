@@ -18,23 +18,21 @@ import { highlight, languages } from "prismjs/components/prism-core";
 import "prismjs/components/prism-rust";
 import "prismjs/themes/prism-tomorrow.css";
 
-import frag from "raw-loader!@/assets/shaderpg.frag.wgsl";
-
 export default {
   name: "Editor",
   components: {
     PrismEditor,
   },
+  props: {
+    initial: String,
+  },
   emits: ["shaderSource"],
-  setup() {
+  setup(props) {
     const state = reactive({
-      code: frag,
+      code: props.initial,
       lineNumbers: true,
+      readonly: props.readonly,
     });
-
-    if (localStorage.source) {
-      state.code = localStorage.source;
-    }
 
     return state;
   },
@@ -50,9 +48,7 @@ export default {
 
 <style scoped>
 .editor {
-  height: inherit;
-
-  background: #2d2d2d;
+  background: #222526;
   color: #ccc;
 
   font-family: Fira code, Fira Mono, Consolas, Menlo, Courier, monospace;
