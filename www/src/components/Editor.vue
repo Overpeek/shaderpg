@@ -26,7 +26,6 @@ export default {
   props: {
     initial: String,
   },
-  emits: ["shaderSource"],
   setup(props) {
     const state = reactive({
       code: props.initial,
@@ -38,8 +37,14 @@ export default {
   },
   methods: {
     highlighter(code) {
-      this.$emit("shaderSource", code);
-      localStorage.source = code;
+      if (typeof this.update !== "undefined") {
+        window.clearTimeout(this.update);
+      }
+
+      this.update = window.setTimeout(() => {
+        this.$emit("codeUpdated", code);
+      }, 1000);
+
       return highlight(code, languages.rust); //returns html
     },
   },
